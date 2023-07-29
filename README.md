@@ -11,3 +11,6 @@ https://asciinema.org/a/1UcX9QuoCuzXQGPu2lW4jZdg4
 
 <h3>2. Brain-calc</h3>
 https://asciinema.org/a/7NY178kKIRUST7Bl5PJjs477g
+
+<h3>3. Brain-gcd</h3>
+https://asciinema.org/a/bdlsNzXGlLyImUCZScbz82OTo

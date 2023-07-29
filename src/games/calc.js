@@ -5,7 +5,7 @@ import getRoundResult from '../index.js';
 import { greetingUser, getRandomNumber, maximumNumberOfRounds } from '../index.js';
 
 const rulesOfTheGame = 'What is the result of the expression?';
-const firstOperand = 0;
+// const firstOperand = 0;
 const min = -10;
 const max = 10;
 const arrayOfOperations = ['+', '-', '*'];

@@ -11,7 +11,7 @@ const getUserName = greetingUser();
 console.log(rulesOfTheGame);
 
 function runEvenGame() {
-  let questionEven = 'no';
+//  let questionEven = 'no';
 
   for (let i = 0; i < maximumNumberOfRounds; i += 1) {
     const question = getRandomNumber(min, max);
