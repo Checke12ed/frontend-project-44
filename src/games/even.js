@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
-import getRoundResult from '../index.js';
 
-import { greetingUser, getRandomNumber, maximumNumberOfRounds } from '../index.js';
+import {
+  greetingUser,
+  getRandomNumber,
+  maximumNumberOfRounds,
+  getRoundResult,
+} from '../index.js';
 
 const rulesOfTheGame = 'Answer "yes" if the number is even, otherwise answer "no".';
 const min = -10;

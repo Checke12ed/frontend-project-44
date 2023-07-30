@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
-import getRoundResult from '../index.js';
 
-import { greetingUser, getRandomNumber, maximumNumberOfRounds } from '../index.js';
+import {
+  greetingUser,
+  getRandomNumber,
+  maximumNumberOfRounds,
+  getRoundResult,
+} from '../index.js';
 
 const rulesOfTheGame = 'Find the greatest common divisor of given numbers.';
 const min = -100;

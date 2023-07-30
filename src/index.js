@@ -2,8 +2,6 @@ import readlineSync from 'readline-sync';
 
 export const maximumNumberOfRounds = 3;
 
-export const userName = '';
-
 // Random number between {min} and {max}
 
 export function getRandomNumber(min, max) {
@@ -18,7 +16,7 @@ export function greetingUser() {
   return name;
 }
 
-export default function getRoundResult(correctAnswer, userAnswer, userName) {
+export function getRoundResult(correctAnswer, userAnswer, userName) {
   let result = '';
   if (correctAnswer === userAnswer) {
     result = 'Correct!';
