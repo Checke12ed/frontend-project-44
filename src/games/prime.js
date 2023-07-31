@@ -8,17 +8,30 @@ import {
   getRoundResult,
 } from '../index.js';
 
-const rulesOfTheGame = 'Answer "yes" if the number is even, otherwise answer "no".';
-const min = -10;
-const max = 10;
+const rulesOfTheGame = 'Answer "yes" if given number is prime. Otherwise answer "no".';
+const min = 2;
+const max = 200;
 const getUserName = greetingUser();
 console.log(rulesOfTheGame);
 
-function runEvenGame() {
+function isPrime(number) {
+  if (number === 2) return true;
+  let i = 2;
+  const limit = Math.sqrt(number);
+  while (i <= limit) {
+    if (number % i === 0) {
+      return false;
+    }
+    i += 1;
+  }
+  return true;
+}
+
+function runPrimeGame() {
   for (let i = 0; i < maximumNumberOfRounds; i += 1) {
     const question = getRandomNumber(min, max);
     const questionGame = readlineSync.question(`Question: ${question} \nYour answer: `);
-    const correctAnswer = (question % 2 === 0) ? 'yes' : 'no';
+    const correctAnswer = isPrime(question) ? 'yes' : 'no';
     const finishGame = getRoundResult(correctAnswer, questionGame, getUserName);
     console.log(finishGame);
     if (finishGame !== 'Correct!') return;
@@ -26,4 +39,4 @@ function runEvenGame() {
   console.log(`Congratulations, ${getUserName}!`);
 }
 
-export default runEvenGame;
+export default runPrimeGame;
