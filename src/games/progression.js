@@ -12,7 +12,6 @@ const rulesOfTheGame = 'What number is missing in the progression?';
 const min = -10;
 const max = 10;
 const minimumNumberOfProgressionElements = 5;
-
 const getUserName = greetingUser();
 console.log(rulesOfTheGame);
 
@@ -23,17 +22,14 @@ function runProgressionGame() {
     let numberOfProgressionElements = Math.abs(getRandomNumber(min, max));
     numberOfProgressionElements = minimumNumberOfProgressionElements + numberOfProgressionElements;
     const numberOfHiddenElementOfProgression = getRandomNumber(1, numberOfProgressionElements);
-
     let progression = '';
     let hiddenElementOfProgression = 0;
-
     if (numberOfHiddenElementOfProgression === 1) {
       hiddenElementOfProgression = firstElementOfProgression;
       progression += '..';
     } else {
       progression += `${firstElementOfProgression}`;
     }
-
     for (let j = 2; j <= numberOfProgressionElements; j += 1) {
       const elementOfProgression = firstElementOfProgression + stepOfProgression * (j - 1);
       if (numberOfHiddenElementOfProgression === j) {
@@ -43,7 +39,6 @@ function runProgressionGame() {
         progression += ` ${elementOfProgression}`;
       }
     }
-
     const questionGame = readlineSync.question(`Question: ${progression} \nYour answer: `);
     const userAnswer = Number(questionGame);
     const finishGame = getRoundResult(hiddenElementOfProgression, userAnswer, getUserName);
