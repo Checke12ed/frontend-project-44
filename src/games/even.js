@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRoundResult from '../index.js';
+
 import {
-  greetingUser,
+  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
-  getRoundResult,
-} from '../index.js';
+} from '../cli.js';
 
 const rulesOfTheGame = 'Answer "yes" if the number is even, otherwise answer "no".';
 const min = -10;
 const max = 10;
-const getUserName = greetingUser();
+const getUserName = sayGreeting();
 console.log(rulesOfTheGame);
 
 function runEvenGame() {

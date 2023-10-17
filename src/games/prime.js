@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRoundResult from '../index.js';
+
 import {
-  greetingUser,
+  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
-  getRoundResult,
-} from '../index.js';
+} from '../cli.js';
 
 const rulesOfTheGame = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 const min = 2;
 const max = 200;
-const getUserName = greetingUser();
+const getUserName = sayGreeting();
 console.log(rulesOfTheGame);
 
 function isPrime(number) {

@@ -1,26 +1,27 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRoundResult from '../index.js';
+
 import {
-  greetingUser,
+  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
-  getRoundResult,
-} from '../index.js';
+} from '../cli.js';
 
 const rulesOfTheGame = 'What number is missing in the progression?';
 const min = -10;
 const max = 10;
 const minimumNumberOfProgressionElements = 5;
-const getUserName = greetingUser();
+const getUserName = sayGreeting();
 console.log(rulesOfTheGame);
 
 function runProgressionGame() {
   for (let i = 0; i < maximumNumberOfRounds; i += 1) {
     const firstElementOfProgression = getRandomNumber(min, max);
     const stepOfProgression = Math.abs(getRandomNumber(min, max));
-    let numberOfProgressionElements = Math.abs(getRandomNumber(min, max));
-    numberOfProgressionElements = minimumNumberOfProgressionElements + numberOfProgressionElements;
+    const numberOfProgressionElements = Math.abs(getRandomNumber(min, max))
+    + minimumNumberOfProgressionElements;
     const numberOfHiddenElementOfProgression = getRandomNumber(1, numberOfProgressionElements);
     let progression = '';
     let hiddenElementOfProgression = 0;

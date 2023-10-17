@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRoundResult from '../index.js';
+
 import {
-  greetingUser,
+  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
-  getRoundResult,
-} from '../index.js';
+} from '../cli.js';
 
 const rulesOfTheGame = 'What is the result of the expression?';
 const min = -10;
 const max = 10;
 const arrayOfOperations = ['+', '-', '*'];
-const getUserName = greetingUser();
+const getUserName = sayGreeting();;
 console.log(rulesOfTheGame);
 
 function runCalcGame() {

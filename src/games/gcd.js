@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 import readlineSync from 'readline-sync';
 
+import getRoundResult from '../index.js';
+
 import {
-  greetingUser,
+  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
-  getRoundResult,
-} from '../index.js';
+} from '../cli.js';
 
 const rulesOfTheGame = 'Find the greatest common divisor of given numbers.';
 const min = -100;
 const max = 100;
 
-const getUserName = greetingUser();
+const getUserName = sayGreeting();
 console.log(rulesOfTheGame);
 
 function runGcdGame() {
