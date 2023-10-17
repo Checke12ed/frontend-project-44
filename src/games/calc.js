@@ -13,7 +13,7 @@ const rulesOfTheGame = 'What is the result of the expression?';
 const min = -10;
 const max = 10;
 const arrayOfOperations = ['+', '-', '*'];
-const getUserName = sayGreeting();;
+const getUserName = sayGreeting();
 console.log(rulesOfTheGame);
 
 function runCalcGame() {
