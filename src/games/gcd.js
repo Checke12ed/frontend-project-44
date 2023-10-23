@@ -1,39 +1,44 @@
 #!/usr/bin/env node
-import readlineSync from 'readline-sync';
 
-import getRoundResult from '../index.js';
+import gameEngine from '../engine.js';
 
 import {
-  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
 } from '../cli.js';
 
-const rulesOfTheGame = 'Find the greatest common divisor of given numbers.';
-const min = -100;
+const min = 1;
 const max = 100;
 
-const getUserName = sayGreeting();
-console.log(rulesOfTheGame);
-
-function runGcdGame() {
-  for (let i = 0; i < maximumNumberOfRounds; i += 1) {
-    let firstNumber = getRandomNumber(min, max);
-    let secondNumber = getRandomNumber(min, max);
-    const questionGame = readlineSync.question(`Question: ${firstNumber} ${secondNumber} \nYour answer: `);
-    const userAnswer = Number(questionGame);
-    firstNumber = Math.abs(firstNumber);
-    secondNumber = Math.abs(secondNumber);
-    while (secondNumber) {
-      const temp = secondNumber;
-      secondNumber = firstNumber % secondNumber;
-      firstNumber = temp;
-    }
-    const finishGame = getRoundResult(firstNumber, userAnswer, getUserName);
-    console.log(finishGame);
-    if (finishGame !== 'Correct!') return;
+const calculateGCD = (firstNumber, secondNumber) => {
+  let a = firstNumber;
+  let b = secondNumber;
+  while (b) {
+    const temp = b;
+    b = a % b;
+    a = temp;
   }
-  console.log(`Congratulations, ${getUserName}!`);
-}
+  return a;
+};
+
+const buildRoundsGcd = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = [];
+
+  for (let i = 0; i < roundsCount; i += 1) {
+    const firstNumber = getRandomNumber(min, max);
+    const secondNumber = getRandomNumber(min, max);
+    const gcd = calculateGCD(firstNumber, secondNumber).toString();
+
+    rounds.push([`${firstNumber} ${secondNumber}`, gcd.toString()]);
+  }
+
+  return rounds;
+};
+
+const runGcdGame = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = buildRoundsGcd(roundsCount);
+
+  return gameEngine('Find the greatest common divisor of given numbers.', rounds);
+};
 
 export default runGcdGame;

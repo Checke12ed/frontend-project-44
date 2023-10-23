@@ -1,52 +1,56 @@
 #!/usr/bin/env node
-import readlineSync from 'readline-sync';
 
-import getRoundResult from '../index.js';
+import gameEngine from '../engine.js';
 
 import {
-  sayGreeting,
   getRandomNumber,
   maximumNumberOfRounds,
 } from '../cli.js';
 
-const rulesOfTheGame = 'What number is missing in the progression?';
 const min = -10;
 const max = 10;
 const minimumNumberOfProgressionElements = 5;
-const getUserName = sayGreeting();
-console.log(rulesOfTheGame);
 
-function runProgressionGame() {
-  for (let i = 0; i < maximumNumberOfRounds; i += 1) {
+const generateProgressionArray = (
+  firstElementOfProgression,
+  stepOfProgression,
+  numberOfProgressionElements,
+) => {
+  const array = [];
+  for (let i = 0; i < numberOfProgressionElements; i += 1) {
+    array.push((firstElementOfProgression + stepOfProgression * i).toString());
+  }
+  return array;
+};
+
+const buildRoundsProgression = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = [];
+
+  for (let i = 0; i < roundsCount; i += 1) {
     const firstElementOfProgression = getRandomNumber(min, max);
     const stepOfProgression = Math.abs(getRandomNumber(min, max));
     const numberOfProgressionElements = Math.abs(getRandomNumber(min, max))
     + minimumNumberOfProgressionElements;
-    const numberOfHiddenElementOfProgression = getRandomNumber(1, numberOfProgressionElements);
-    let progression = '';
-    let hiddenElementOfProgression = 0;
-    if (numberOfHiddenElementOfProgression === 1) {
-      hiddenElementOfProgression = firstElementOfProgression;
-      progression += '..';
-    } else {
-      progression += `${firstElementOfProgression}`;
-    }
-    for (let j = 2; j <= numberOfProgressionElements; j += 1) {
-      const elementOfProgression = firstElementOfProgression + stepOfProgression * (j - 1);
-      if (numberOfHiddenElementOfProgression === j) {
-        hiddenElementOfProgression = elementOfProgression;
-        progression += ' ..';
-      } else {
-        progression += ` ${elementOfProgression}`;
-      }
-    }
-    const questionGame = readlineSync.question(`Question: ${progression} \nYour answer: `);
-    const userAnswer = Number(questionGame);
-    const finishGame = getRoundResult(hiddenElementOfProgression, userAnswer, getUserName);
-    console.log(finishGame);
-    if (finishGame !== 'Correct!') return;
+    const progression = generateProgressionArray(
+      firstElementOfProgression,
+      stepOfProgression,
+      numberOfProgressionElements,
+    );
+
+    const numberOfHiddenElementOfProgression = getRandomNumber(0, progression.length - 1);
+    const hiddenElementOfProgression = progression[numberOfHiddenElementOfProgression];
+    progression[numberOfHiddenElementOfProgression] = '..';
+
+    rounds.push([progression.join(' '), hiddenElementOfProgression]);
   }
-  console.log(`Congratulations, ${getUserName}!`);
-}
+
+  return rounds;
+};
+
+const runProgressionGame = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = buildRoundsProgression(roundsCount);
+
+  return gameEngine('What number is missing in the progression?', rounds);
+};
 
 export default runProgressionGame;

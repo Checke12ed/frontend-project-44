@@ -1,30 +1,23 @@
 #!/usr/bin/env node
-import readlineSync from 'readline-sync';
 
-import getRoundResult from '../index.js';
+import gameEngine from '../engine.js';
 
 import {
-  sayGreeting,
-  getRandomNumber,
+  buildRoundsForNumbers,
   maximumNumberOfRounds,
 } from '../cli.js';
 
-const rulesOfTheGame = 'Answer "yes" if the number is even, otherwise answer "no".';
-const min = -10;
-const max = 10;
-const getUserName = sayGreeting();
-console.log(rulesOfTheGame);
+const isEvenNumber = (number) => number % 2 === 0;
 
-function runEvenGame() {
-  for (let i = 0; i < maximumNumberOfRounds; i += 1) {
-    const question = getRandomNumber(min, max);
-    const questionGame = readlineSync.question(`Question: ${question} \nYour answer: `);
-    const correctAnswer = (question % 2 === 0) ? 'yes' : 'no';
-    const finishGame = getRoundResult(correctAnswer, questionGame, getUserName);
-    console.log(finishGame);
-    if (finishGame !== 'Correct!') return;
-  }
-  console.log(`Congratulations, ${getUserName}!`);
-}
+const buildRoundsEven = (minNumber = 2, maxNumber = 30, roundsCount = maximumNumberOfRounds) => {
+  const checkNumberFunction = isEvenNumber;
+  return buildRoundsForNumbers(checkNumberFunction, minNumber, maxNumber, roundsCount);
+};
+
+const runEvenGame = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = buildRoundsEven(roundsCount);
+
+  return gameEngine('Answer "yes" if the number is even, otherwise answer "no".', rounds);
+};
 
 export default runEvenGame;

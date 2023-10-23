@@ -15,3 +15,17 @@ export function sayGreeting() {
   console.log(`Hello, ${userName}!`);
   return userName;
 }
+
+export function buildRoundsForNumbers(checkNumberFunc, minNumber, maxNumber, roundsCount) {
+  const rounds = [];
+
+  for (let i = 0; i < roundsCount; i += 1) {
+    const number = getRandomNumber(minNumber, maxNumber);
+
+    rounds.push([`${number}`, checkNumberFunc(number) ? 'yes' : 'no']);
+  }
+
+  return rounds;
+}
+
+export default sayGreeting;

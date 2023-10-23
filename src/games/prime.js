@@ -1,21 +1,16 @@
 #!/usr/bin/env node
-import readlineSync from 'readline-sync';
 
-import getRoundResult from '../index.js';
+import gameEngine from '../engine.js';
 
 import {
-  sayGreeting,
-  getRandomNumber,
+  buildRoundsForNumbers,
   maximumNumberOfRounds,
 } from '../cli.js';
 
-const rulesOfTheGame = 'Answer "yes" if given number is prime. Otherwise answer "no".';
-const min = 2;
-const max = 200;
-const getUserName = sayGreeting();
-console.log(rulesOfTheGame);
+// const min = 2;
+// const max = 200;
 
-function isPrime(number) {
+const isPrimeNumber = (number) => {
   if (number === 2) return true;
   let i = 2;
   const limit = Math.sqrt(number);
@@ -26,18 +21,17 @@ function isPrime(number) {
     i += 1;
   }
   return true;
-}
+};
 
-function runPrimeGame() {
-  for (let i = 0; i < maximumNumberOfRounds; i += 1) {
-    const question = getRandomNumber(min, max);
-    const questionGame = readlineSync.question(`Question: ${question} \nYour answer: `);
-    const correctAnswer = isPrime(question) ? 'yes' : 'no';
-    const finishGame = getRoundResult(correctAnswer, questionGame, getUserName);
-    console.log(finishGame);
-    if (finishGame !== 'Correct!') return;
-  }
-  console.log(`Congratulations, ${getUserName}!`);
-}
+const buildRoundsPrime = (minNumber = 2, maxNumber = 30, roundsCount = maximumNumberOfRounds) => {
+  const checkNumberFunction = isPrimeNumber;
+  return buildRoundsForNumbers(checkNumberFunction, minNumber, maxNumber, roundsCount);
+};
+
+const runPrimeGame = (roundsCount = maximumNumberOfRounds) => {
+  const rounds = buildRoundsPrime(roundsCount);
+
+  return gameEngine('Answer "yes" if given number is prime. Otherwise answer "no".', rounds);
+};
 
 export default runPrimeGame;
